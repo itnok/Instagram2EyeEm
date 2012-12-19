@@ -4,3 +4,6 @@
 [submodule "api/eyeem"]
 	path = api/eyeem
 	url = git://github.com/eyeem/API-php-wrapper.git
+[submodule "lib/bootstrap"]
+	path = lib/bootstrap
+	url = git://github.com/twitter/bootstrap.git
