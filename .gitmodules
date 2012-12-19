@@ -1,0 +1,6 @@
+[submodule "api/instagram"]
+	path = api/instagram
+	url = git://github.com/galen/PHP-Instagram-API.git
+[submodule "api/eyeem"]
+	path = api/eyeem
+	url = git://github.com/eyeem/API-php-wrapper.git
