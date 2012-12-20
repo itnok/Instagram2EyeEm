@@ -19,14 +19,14 @@ $auth_config = array(
     'scope'             => array( 'likes', 'comments', 'relationships' )
 );
 
-// Requested page	
+// Requested page
 $page = $_REQUEST[ 'p' ];
 
 // Javascript files to append
 $js_append = array();
 
 // If an example has been chosen, include it and exit
-if ( ! empty( $page ) && $page != 'home' && file_exists( APP_DIR . '/controllers/' . $page . '.php' ) ) {
+if( ! empty( $page ) && $page != 'home' && file_exists( APP_DIR . '/controllers/' . $page . '.php' ) ) {
     try {
         date_default_timezone_set( 'Europe/Rome' );
         require( APP_DIR . '/_SplClassLoader.php' );
