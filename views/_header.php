@@ -1,52 +1,83 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
-	<meta charset="utf-8">
-	<title>Instagram Examples<?php if( isset( $_GET['example'] ) ): ?> - <?php echo ucwords( str_replace( '_', ' ', basename( $_GET['example'], '.php' ) ) ) ?><?php endif; ?></title>
-	<style type="text/css">
-		* { margin:0; padding:0 }
-		body { font-family: arial, verdana, sans-serif; padding-bottom: 100px; background:#f9f6f1 }
-		h1 { background: #675548; color:#fff; padding: 6px; font-size: 18px; }
-		h1 a { font-size: 10px; color: #00ff00; }
-		#breadcrumbs { background: #d9d1c2; padding: 6px; font-size: 14px; }
-		#breadcrumbs a { color: #aa0000;text-decoration:none }
-		#breadcrumbs a:hover { text-decoration:underline; }
-		#content { padding: 6px; width:900px; position:relative; }
-		a { color: #aa0000;text-decoration:none }
-		a:hover { text-decoration:underline; }
-		h2, h3, h4 { margin: 10px 0 }
-		.next_page { font-size:12px }
-		.media_list { overflow:auto; list-style:none }
-		.media_list li { float:left; margin: 0 4px 4px 0 }
-		.media_list img { width:50px; height:50px; border: 1px solid #aaa; padding: 2px; }
-		.media_list img:hover { border: 1px solid #000 }
-		dl { overflow:auto }
-		dt, dd { float:left; width: 450px; margin-bottom: 6px}
-		dt { clear:left; width:150px }
-		#caption { margin-bottom: 15px }
-		pre { font-family: courier; width:600px; overflow:auto }
-		.more_examples { position:absolute; right: 0; }
-		#like { padding: 8px 0; text-align:center; width: 612px; background: #eee; margin-bottom: 10px }
-		#comment_form{ margin-top: 20px; }
-		#comment_text { width: 400px }
-		.map {width:300px;height:200px}
-		.map_wrapper { position:relative;width: 300px }
-		.map_wrapper .crosshairs {position:absolute;z-index: 999;top: 90px;left:140px;}
-		#search_results { position:absolute; top:0;right:0; width: 500px; }
-		#search_results .list { margin-left: 20px}
-		#search_forms { width:350px; }
-		.search_form_wrapper { padding:10px;border-bottom: 1px solid #d9d1c2; }
-		.search_form_wrapper.active { background: #f5f0e7; }
-		.search_form_wrapper h2 { margin:0; }
-		#error { color: #aa0000; font-weight: bold; margin-bottom: 10px; }
-	</style>
+    <meta charset="utf-8">
+
+    <title>Instagram 2 EyeEm</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Migrate all your Instagram images to EyeEm">
+    <meta name="author" content="Simone Conti - http://dev.itnok.com"><!-- Le styles -->
+    <link href="lib/bootstrap/docs/assets/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <style type="text/css">
+	    body {
+		    padding-top: 20px;
+		    padding-bottom: 40px;
+	    }
+	    
+	    /* Custom container */
+	    .container-narrow {
+		    margin: 0 auto;
+		    max-width: 700px;
+	    }
+	    .container-narrow > hr {
+	    	margin: 30px 0;
+	    }
+	    
+	    /* Main marketing message and sign up button */
+	    .jumbotron {
+		    margin: 60px 0;
+		    text-align: center;
+	    }
+	    .jumbotron h1 {
+		    font-size: 72px;
+		    line-height: 1;
+	    }
+	    .jumbotron .btn {
+		    font-size: 21px;
+		    padding: 14px 24px;
+	    }
+	    
+	    /* Supporting marketing content */
+	    .marketing {
+		    margin: 60px 0;
+	    }
+	    .marketing p + h4 {
+		    margin-top: 28px;
+	    }
+	    #progress .spin {
+		    height: 100px;
+	    }
+	    #progress .text {
+		    padding-top: 50px;
+	    }
+    </style>
+    <link href="lib/bootstrap/docs/assets/css/bootstrap-responsive.css" rel="stylesheet" type="text/css">
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="lib/bootstrap/docs/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="lib/bootstrap/docs/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" 	 href="lib/bootstrap/docs/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" 				 href="lib/bootstrap/docs/assets/ico/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" 								 href="lib/bootstrap/docs/assets/ico/favicon.png">
 </head>
+
 <body>
+    <div class="container-narrow">
+	    <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+        	<li <?php echo (   empty( $page ) || $page == 'home'    ? 'class="active"' : '' ) ?>><a href="<?php echo WEB_DIR ?>">Home</a></li>
+        	<li <?php echo ( ! empty( $page ) && $page == 'about'   ? 'class="active"' : '' ) ?>><a href="<?php echo WEB_DIR ?>/about">About</a></li>
+        	<li <?php echo ( ! empty( $page ) && $page == 'contact' ? 'class="active"' : '' ) ?>><a href="<?php echo WEB_DIR ?>/contact">Contact</a></li>
+        </ul>
+        <h3 class="muted">Instagram 2 EyeEm</h3>
+        </div>
 
-<h1>Instagram PHP Wrapper Examples</h1>
-<?php if( isset( $_GET['example'] ) ): ?>
-<p id="breadcrumbs"><a href="./">Home</a> \ <?php echo ucwords( str_replace( '_', ' ', basename( $_GET['example'], '.php' ) ) ) ?> Example</p>
-<?php endif; ?>
+        <hr>
 
-<div id="content">
-
-<?php if( isset( $error ) ): ?><p id="error"><?php echo htmlspecialchars( $error ) ?></p><?php endif; ?>
+        <div class="jumbotron">
+	    <?php if( isset( $error ) ): ?>
+	        <p id="error"><?php echo htmlspecialchars( $error ) ?></p>
+	    <?php endif; ?>

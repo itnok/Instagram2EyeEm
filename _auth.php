@@ -1,9 +1,5 @@
 <?php
 
-require( '_SplClassLoader.php' );
-$loader = new SplClassLoader( 'Instagram', dirname( __DIR__ ) . 'api/instagram/Instagram'  );
-$loader->register();
-
 $auth = new Instagram\Auth( $auth_config );
 
 // If a code is present try and get the access token
@@ -11,7 +7,7 @@ $auth = new Instagram\Auth( $auth_config );
 if ( isset( $_GET['code'] ) ) {
 
     try {
-        $_SESSION[ 'instagram_access_token' ] = $auth->getAccessToken( $_GET[ 'code' ] );
+        $_SESSION[ 'instagram_access_token' ] = $auth->getAccessToken( $_REQUEST[ 'code' ] );
         header( 'Location: ' . REDIRECT_AFTER_AUTH );
         exit;
     } catch ( \Instagram\Core\ApiException $e ) {

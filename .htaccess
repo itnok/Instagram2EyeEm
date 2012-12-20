@@ -1,0 +1,20 @@
+php_flag safe_mode Off
+
+php_value session.auto_start 0
+
+RewriteEngine on
+RewriteBase /igers2eye
+
+######################################################################
+###
+### Page Router
+###
+######################################################################
+
+###	Trap the empty string
+RewriteCond %{QUERY_STRING} ^$
+RewriteRule ^/$ index.php?p=home [QSA,NC]
+
+###	Trap everything else!
+RewriteCond $1 !(index\.php|robots.txt|\.js|\.ico|\.gif|\.jpg|\.png|\.css|\.md)
+RewriteRule ^(.*)$ index.php?p=$1 [QSA,NC]

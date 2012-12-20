@@ -1,8 +1,8 @@
 <?php
 
-define( 'GITHUB_URL',           'https://github.com/galen/PHP-Instagram-API/blob/master/Examples/' );
 define( 'APP_DIR',         		__DIR__ );
-define( 'REDIRECT_AFTER_AUTH',  http://dev.itnok.com/igers2eye/' );
+define( 'WEB_DIR',  			dirname( $_SERVER[ 'PHP_SELF' ] ) );
+define( 'REDIRECT_AFTER_AUTH',  'http://dev.itnok.com/igers2eye/migrate' );
 
 // Turn on error reporting
 error_reporting( E_ALL );
@@ -19,20 +19,28 @@ $auth_config = array(
     'scope'             => array( 'likes', 'comments', 'relationships' )
 );
 
-// Start authorization if an access token session isnt present
-if ( ! isset( $_SESSION[ 'instagram_access_token' ] ) ) {
-    require( APP_DIR . '/_auth.php' );
-    exit;
-}
+// Requested page	
+$page = $_REQUEST[ 'p' ];
+
+// Javascript files to append
+$js_append = array();
 
 // If an example has been chosen, include it and exit
-if ( isset( $_GET['example'] ) ) {
+if ( ! empty( $page ) && $page != 'home' && file_exists( APP_DIR . '/controllers/' . $page . '.php' ) ) {
     try {
-        date_default_timezone_set('America/Los_Angeles');
-        require( EXAMPLES_DIR . '/_SplClassLoader.php' );
-        $loader = new SplClassLoader( 'Instagram', dirname( APP_DIR ) . '/api/instagram/Instagram' );
+        date_default_timezone_set( 'Europe/Rome' );
+        require( APP_DIR . '/_SplClassLoader.php' );
+        $loader = new SplClassLoader( 'Instagram', APP_DIR . '/api/instagram' );
         $loader->register();
-        require( EXAMPLES_DIR . '/' . $_GET['example'] );
+
+        //	Append some Js specific for this view if exists
+        if( file_exists( APP_DIR . '/js/' . $page . '.js' ) )
+        array_push(
+        	$js_append,
+            'js/' . $page . '.js'
+        );
+        
+        require( APP_DIR . '/controllers/' . $page . '.php' );
         exit;
     }
     /**
@@ -42,7 +50,7 @@ if ( isset( $_GET['example'] ) ) {
     catch ( \Instagram\Core\ApiAuthException $e ) {
         unset( $_SESSION );
         session_destroy();
-        header( 'Location: ' . $auth_config['redirect_uri'] );
+        header( 'Location: ' . $auth_config[ 'redirect_uri' ] );
         exit;
     }
     catch ( \Instagram\Core\ApiException $e ) {
