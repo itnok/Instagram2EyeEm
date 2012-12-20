@@ -29,8 +29,12 @@
 		    text-align: center;
 	    }
 	    .jumbotron h1 {
-		    font-size: 72px;
-		    line-height: 1;
+		    font-size  : 5.0em;
+		    line-height: 1.0em;
+	    }
+	    .jumbotron .headtitle h2 {
+		    font-size  : 4.0em;
+		    line-height: 1.0em;
 	    }
 	    .jumbotron .btn {
 		    font-size: 21px;
