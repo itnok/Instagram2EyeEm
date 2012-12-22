@@ -22,13 +22,13 @@
     <script  type="text/javascript" src="lib/bootstrap/docs/assets/js/bootstrap-collapse.js"></script>
     <script  type="text/javascript" src="lib/bootstrap/docs/assets/js/bootstrap-carousel.js"></script>
     <script  type="text/javascript" src="lib/bootstrap/docs/assets/js/bootstrap-typeahead.js"></script>
-    <script  type="text/javascript" src="lib/bootstrap/docs/assets/js/bootstrap-typeahead.js"></script>
+    <script  type="text/javascript" src="lib/bootstrap/docs/assets/js/holder/holder.js"></script>
     <?php
 	    // Add more view-specific js files
     	foreach( $js_append as $js ) {
 	    	echo "\t" . '<script  type="text/javascript" src="' . $js . '"></script>' . "\n";
     	}
     ?>
-	<a href="https://github.com/itnok"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub"></a>
+	<a href="https://github.com/itnok"><img src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub" class="forkme hidden-phone"></a>
 </body>
 </html>

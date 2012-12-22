@@ -1,9 +1,14 @@
 <div class="row-fluid headtitle">
 	<div class="span10 offset1">
-		<h1 class="hidden-phone">From Instagram to EyeEm with just one click!</h1>
-		<h2 class="visible-phone">From Instagram to EyeEm with just one click!</h2>
+		<ul class="thumbnails">
+			<li class="span4 offset4">
+				<img src="img/igers2eye.png" alt="Instaagram 2 EyeEm">
+			</li>
+		</ul>
+		<h1 class="hidden-phone">From Instagram to EyeEm with just 1&#8209;click!</h1>
+		<h2 class="visible-phone">From Instagram to EyeEm with just 1&#8209;click!</h2>
 
-		<p class="lead">Migrate all your photos from your existing profile on Instagram to your freshly created profile on EyeEm with this free 1-click solution</p><a class="btn btn-large btn-success" href="migrate">Migrate NOW!</a>
+		<p class="lead">Migrate all your photos from your existing profile on Instagram to your freshly created profile on EyeEm with this free easy 1&#8209;click solution</p><a class="btn btn-large btn-success" href="migrate">Migrate NOW!</a>
 	</div>
 </div>
 

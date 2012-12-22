@@ -25,7 +25,7 @@
 	    
 	    /* Main marketing message and sign up button */
 	    .jumbotron {
-		    margin: 60px 0;
+		    margin: 30px 0;
 		    text-align: center;
 	    }
 	    .jumbotron h1 {
@@ -53,6 +53,12 @@
 	    }
 	    #progress .text {
 		    padding-top: 50px;
+	    }
+	    .forkme {
+		    position: absolute;
+		    top     : 0px;
+		    right   : 0px;
+		    border  : 0px;
 	    }
     </style>
     <link href="lib/bootstrap/docs/assets/css/bootstrap-responsive.css" rel="stylesheet" type="text/css">
