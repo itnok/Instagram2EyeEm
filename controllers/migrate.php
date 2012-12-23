@@ -1,15 +1,33 @@
 <?php
 
-// Start authorization if an access token session isnt present
-if ( ! isset( $_SESSION[ 'instagram_access_token' ] ) ) {
-    require( APP_DIR . '/_auth.php' );
+//
+//	Instagram
+//
+
+// Start Instagram authorization if an access token session isnt present
+if( empty( $_SESSION[ 'instagram_access_token' ] ) ) {
+	header( 'Location: ' . REDIRECT_AFTER_AUTH . 'igers' );
     exit;
 }
 
-$instagram = new Instagram\Instagram;
 $instagram->setAccessToken( $_SESSION[ 'instagram_access_token' ] );
 $current_user = $instagram->getCurrentUser();
 
+//
+//	EyeEm
+//
+
+// Start EyeEm authorization if an access token session isnt present
+if( empty( $_SESSION[ 'eyeem_access_token' ][ 'access_token' ] ) ) {
+	header( 'Location: ' . REDIRECT_AFTER_AUTH . 'eyeem' );
+    exit;
+} else {
+	$eyeem->setAccessToken( $_SESSION[ 'eyeem_access_token' ][ 'access_token' ] );
+}
+
+//
+//	Get media list from Instagram
+//
 $mediaList = array();
 
 try {

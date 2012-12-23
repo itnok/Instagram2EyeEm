@@ -15,6 +15,9 @@ $.fn.spin = function( opts ) {
   return this;
 };
 
+//
+//	Load data about Instagram User's pictures
+//
 var loadInstagramData = function() {
 	var d = $.data( document.body, 'instagram' );
 
@@ -41,17 +44,27 @@ var loadInstagramData = function() {
 				var percent = 100 * d[ 'media' ].length / d[ 'bucket_size' ];
 				$( '#progress .bar' ).css( 'width', percent + '%' );
 				
-				//	Hide the Bootstrap progress bar if the process reaches 100%
 				if( percent == 100 ) {
+					//	Hide the Bootstrap progress bar if the process reaches 100%
 					$( '#progress .progress' ).delay( 500 ).fadeOut( 500 );
+					
+					//	Let's start the import process in EyeEm...
+					setTimeout( migrateToEyeEm, 5 );
+				} else {
+					//	We have not finished yet! Let's set timeout for the next AJAX request
+					setTimeout( loadInstagramData, 5 );
 				}
 
-				//	Set timeout for the next AJAX request
-				setTimeout( loadInstagramData, 5 );
 			}
 		} );
 	}
 	
+}
+
+//
+//	Load data about Instagram User's pictures
+//
+var migrateToEyeEm = function() {
 }
 
 $( function() {

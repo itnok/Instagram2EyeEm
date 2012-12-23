@@ -2,7 +2,8 @@
 
 define( 'APP_DIR',         		__DIR__ );
 define( 'WEB_DIR',  			dirname( $_SERVER[ 'PHP_SELF' ] ) );
-define( 'REDIRECT_AFTER_AUTH',  'http://dev.itnok.com/igers2eye/migrate' );
+define( 'REDIRECT',  			'http://dev.itnok.com/igers2eye/' );
+define( 'REDIRECT_AFTER_AUTH',  REDIRECT . 'auth_' );
 
 // Turn on error reporting
 error_reporting( E_ALL );
@@ -13,10 +14,17 @@ session_start();
 
 // Authorization configuration
 $auth_config = array(
-    'client_id'         => 'e341350c776a4848b8ab92f37009f4fc',
-    'client_secret'     => '78afef998efe47a5930fe93b96b32def',
-    'redirect_uri'      => REDIRECT_AFTER_AUTH,
-    'scope'             => array( 'likes', 'comments', 'relationships' )
+    'instagram' => array(
+	    'client_id'         => 'e341350c776a4848b8ab92f37009f4fc',
+	    'client_secret'     => '78afef998efe47a5930fe93b96b32def',
+	    'redirect_uri'      => REDIRECT_AFTER_AUTH . 'igers',
+	    'scope'             => array( 'likes', 'comments', 'relationships' ),
+	),
+	'eyeem' => array(
+		'client_id' 		=> 'qOIvHA9pLUumq6zhYvCEkNr9nhtgf3g2',
+		'client_secret'		=> 'uTE9CJX3rngiGC5buh996SWPc2F8TpZ9',
+		'redirect_uri'		=> REDIRECT_AFTER_AUTH . 'eyeem',
+	)
 );
 
 // Requested page
@@ -30,8 +38,20 @@ if( ! empty( $page ) && $page != 'home' && file_exists( APP_DIR . '/controllers/
     try {
         date_default_timezone_set( 'Europe/Rome' );
         require( APP_DIR . '/_SplClassLoader.php' );
-        $loader = new SplClassLoader( 'Instagram', APP_DIR . '/api/instagram' );
-        $loader->register();
+
+        //	Registers Instagram API Classes
+        $loaderIgers = new SplClassLoader( 'Instagram', APP_DIR . '/api/instagram' );
+        $loaderIgers->register();
+
+        $instagram = new Instagram\Instagram;
+
+        //	Registers EyeEm API Classes
+        require_once( APP_DIR . '/api/eyeem/lib/Eyeem.php' );
+
+        $eyeem = new Eyeem();
+        $eyeem->setClientId( $auth_config[ 'eyeem' ][ 'client_id' ] );
+        $eyeem->setClientSecret( $auth_config[ 'eyeem' ][ 'client_secret' ]  );
+        $eyeem->autoload();
 
         //	Append some Js specific for this view if exists
         if( file_exists( APP_DIR . '/js/' . $page . '.js' ) )
@@ -50,7 +70,7 @@ if( ! empty( $page ) && $page != 'home' && file_exists( APP_DIR . '/controllers/
     catch ( \Instagram\Core\ApiAuthException $e ) {
         unset( $_SESSION );
         session_destroy();
-        header( 'Location: ' . $auth_config[ 'redirect_uri' ] );
+        header( 'Location: ' . $auth_config[ 'instagram' ][ 'redirect_uri' ] );
         exit;
     }
     catch ( \Instagram\Core\ApiException $e ) {
