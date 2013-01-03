@@ -46,10 +46,35 @@ var loadInstagramData = function() {
 				
 				if( percent == 100 ) {
 					//	Hide the Bootstrap progress bar if the process reaches 100%
-					$( '#progress .progress' ).delay( 500 ).fadeOut( 500 );
+					//	Hide the status text, substitute it and make it visible again
+					//	Reset and Show back the progress bar 
+					$( '#progress' )
+						.delay( 500 )
+						//	Hide Progressbar
+						.find( '.progress' )
+						.fadeOut( 500, function() {
+							$( this )
+								//	Modify Status Text
+								.parent()
+								.find( '.text' )
+								.fadeOut( 500, function() {
+									$( this )
+										.find( 'h2' )
+										.html( 'Migrating your ' + d[ 'media' ].length + ' photos to EyeEm...' )
+										.parent()
+										.fadeIn( 500 )
+								} )
+								//	Show Progressbar
+								.parent()
+								.find( '.progress .bar' )
+								.css( 'width', '0%' )
+								.parent()
+								.fadeIn( 500 )
+							;
+						} );
 					
 					//	Let's start the import process in EyeEm...
-					setTimeout( migrateToEyeEm, 5 );
+					setTimeout( migrateToEyeEm, 500 );
 				} else {
 					//	We have not finished yet! Let's set timeout for the next AJAX request
 					setTimeout( loadInstagramData, 5 );
@@ -65,6 +90,50 @@ var loadInstagramData = function() {
 //	Load data about Instagram User's pictures
 //
 var migrateToEyeEm = function() {
+	var d = $.data( document.body, 'instagram' );
+	var e = $.data( document.body, 'eyeem' );
+
+	if( d[ 'bucket_size' ] > 0
+	 && d[ 'bucket_size' ] > e[ 'media' ].length ) {
+
+		var nextPic = d[ 'bucket_size' ] - e[ 'media' ].length - 1;
+
+		$.ajax( {
+			url     : 'upload-eyeem-pic',
+			type    : 'POST',
+			data    : { 
+				photo  : d[ 'media' ][ nextPic ][ 'image' ][ 'std' ][ 'url' ],
+				title  : d[ 'media' ][ nextPic ][ 'caption' ],
+				topic  : d[ 'media' ][ nextPic ][ 'tags' ].join( ',' )
+			},
+			cache   : false,
+			dataType: 'json',
+			success : function( data ) {
+				d[ 'error' ]  = data[ 'error' ];
+				d[ 'max_id' ] = data[ 'max_id' ];
+				
+				for( var pic in data[ 'media' ] ) {
+					e[ 'media' ].push( data[ 'media' ][ pic ] );
+				}
+				
+				//	Update data
+				$.data( document.body, 'eyeem', e );
+
+				var percent = 100 * e[ 'media' ].length / e[ 'bucket_size' ];
+				$( '#progress .bar' ).css( 'width', percent + '%' );
+				
+				if( percent == 100 ) {
+					//	DO SOMETHING WHEN FINISHED
+
+				} else {
+					//	We have not finished yet! Let's set timeout for the next AJAX request
+					setTimeout( migrateToEyeEm, 5 );
+				}
+
+			}
+		} );
+	}
+	
 }
 
 $( function() {
@@ -92,7 +161,10 @@ $( function() {
 	//	Initialize Instagram data array
 	$.data( document.body, 'instagram', { 'media':[], 'error':null, 'max_id':null, 'bucket_size':$( '#progress' ).data( 'bucket_size' )  } );
 
-	//	Wait 500ms then execute "loadInstagramData
+	//	Initialize EyeEm data array
+	$.data( document.body, 'eyeem', { 'media':[], 'error':null, 'max_id':null, 'bucket_size':$( '#progress' ).data( 'bucket_size' )  } );
+
+	//	Wait 500ms then execute "loadInstagramData"
 	setTimeout( loadInstagramData, 500 );
 
 } );

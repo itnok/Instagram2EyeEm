@@ -25,11 +25,6 @@ if( empty( $_SESSION[ 'eyeem_access_token' ][ 'access_token' ] ) ) {
 	$eyeem->setAccessToken( $_SESSION[ 'eyeem_access_token' ][ 'access_token' ] );
 }
 
-//
-//	Get media list from Instagram
-//
-$mediaList = array();
-
 try {
 
 	$username  = ! empty( $_REQUEST[ 'user' ] ) ? $_REQUEST[ 'user' ] : $current_user->getUserName();
