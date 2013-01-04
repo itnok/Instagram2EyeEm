@@ -24,6 +24,11 @@ $auth_config = array(
 		'client_id' 		=> 'qOIvHA9pLUumq6zhYvCEkNr9nhtgf3g2',
 		'client_secret'		=> 'uTE9CJX3rngiGC5buh996SWPc2F8TpZ9',
 		'redirect_uri'		=> REDIRECT_AFTER_AUTH . 'eyeem',
+	),
+	'foursquare' => array(
+		'client_id' 		=> '3GPBXRNBQNKGYXWXRKAVPFBA5WQNP3FHLYYAUVPS0XOFKRDO',
+		'client_secret'		=> 'JAQPICH5MMN5A0D2INGT0S2AKGL0ULMY1NY0QMPCHIQJHENQ',
+		'redirect_uri'		=> REDIRECT_AFTER_AUTH . '4square',
 	)
 );
 
