@@ -40,8 +40,10 @@ try{
 	    		);
     		}
 
+    		$caption = $photo->getCaption();
+
     		$mediaList[] = array(
-    			'caption'  => $photo->getCaption()->getText(),
+    			'caption'  => ( ! empty( $caption ) ? $photo->getCaption()->getText() : '' ),
     			'tags'     => $photo->getTags()->toArray(),
     			'location' => $location,
     			'link'     => $photo->getLink(),
