@@ -4,12 +4,12 @@
 [submodule "api/eyeem"]
 	path = api/eyeem
 	url = git://github.com/eyeem/API-php-wrapper.git
-[submodule "lib/bootstrap"]
-	path = lib/bootstrap
-	url = git://github.com/twitter/bootstrap.git
-[submodule "lib/spin.js"]
-	path = lib/spin.js
-	url = git://github.com/fgnass/spin.js.git
 [submodule "api/foursquare"]
 	path = api/foursquare
 	url = git://github.com/stephenyoung/php-foursquare.git
+[submodule "lib/js/bootstrap"]
+	path = lib/js/bootstrap
+	url = git://github.com/twitter/bootstrap.git
+[submodule "lib/js/spin.js"]
+	path = lib/js/spin.js
+	url = git://github.com/fgnass/spin.js.git
