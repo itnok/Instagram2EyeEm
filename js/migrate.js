@@ -102,9 +102,13 @@ var migrateToEyeEm = function() {
 			url     : 'upload-eyeem-pic',
 			type    : 'POST',
 			data    : { 
-				photo  : d[ 'media' ][ nextPic ][ 'image' ][ 'std' ][ 'url' ],
-				title  : d[ 'media' ][ nextPic ][ 'caption' ],
-				topic  : d[ 'media' ][ nextPic ][ 'tags' ].join( ',' )
+				photo   : d[ 'media' ][ nextPic ][ 'image' ][ 'std' ][ 'url' ],
+				title   : d[ 'media' ][ nextPic ][ 'caption' ],
+				topic   : d[ 'media' ][ nextPic ][ 'tags' ].join( ',' ),
+				loc_id  : d[ 'media' ][ nextPic ][ 'location' ][ 'id' ],
+				loc_lat : d[ 'media' ][ nextPic ][ 'location' ][ 'lat' ],
+				loc_lon : d[ 'media' ][ nextPic ][ 'location' ][ 'lon' ],
+				loc_name: d[ 'media' ][ nextPic ][ 'location' ][ 'name' ]
 			},
 			cache   : false,
 			dataType: 'json',

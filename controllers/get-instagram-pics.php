@@ -30,14 +30,25 @@ try{
 
     	foreach( $media as $photo ) {
     		$location = array(
+    			'id'  => null,
     			'lat' => null,
     			'lon' => null,
     		);
     		if( $photo->hasLocation() ) {
-	    		$location = array(
-	    			'lat' => $photo->getLocation()->getData()->latitude,
-	    			'lon' => $photo->getLocation()->getData()->longitude,
-	    		);
+
+	    		//	Location ID (Instagram Proprietary - look like a FourSquare V1 venueId)
+	    		if( $photo->getLocation()->getId() ) {
+		    		$location[ 'id' ] = $photo->getLocation()->getId();
+	    		}
+
+	    		//	Latitude & Longitude
+	    		$location[ 'lat' ] = $photo->getLocation()->getLat();
+	    		$location[ 'lon' ] = $photo->getLocation()->getLng();
+	    		
+	    		//	Location Name
+	    		if( $photo->getLocation()->getName() ) {
+		    		$location[ 'name' ] = $photo->getLocation()->getName();
+	    		}
     		}
 
     		$caption = $photo->getCaption();

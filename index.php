@@ -6,7 +6,7 @@ define( 'REDIRECT',  			'http://dev.itnok.com/igers2eye/' );
 define( 'REDIRECT_AFTER_AUTH',  REDIRECT . 'auth_' );
 
 // Turn on error reporting
-error_reporting( E_ALL );
+error_reporting( E_ALL & ~E_NOTICE );
 ini_set( 'display_errors', 'On' );
 
 // Start the session

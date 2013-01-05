@@ -1,5 +1,12 @@
 <?php
 
+require_once( APP_DIR . '/api/foursquare/src/FoursquareAPI.class.php' );
+
+$foursquare = new FoursquareAPI(
+					$auth_config[ 'foursquare' ][ 'client_id' ],
+					$auth_config[ 'foursquare' ][ 'client_secret' ]
+					);
+
 function return_json( $mediaList = array(), $max_id = null, $error = null ) {
 	return json_encode( array( 'media' => $mediaList, 'error' => $error, 'max_id' => $max_id ) );
 }
@@ -33,14 +40,70 @@ try{
 	//	Upload the image to EyeEm
 	$filename = $eyeem->uploadPhoto( $targetname );
 
+	//	initialize the EyeEm Photo object params
+	$eye_params = array(
+    	'filename' => $filename,
+    	'title'    => stripslashes( $_REQUEST[ 'title' ] ),
+    );
+
+	//	Geolocate through FourSquare
+	if( ! empty( $_REQUEST[ 'loc_lat' ] ) &&
+		! empty( $_REQUEST[ 'loc_lon' ] ) &&
+		! empty( $_REQUEST[ 'loc_name' ] ) ) {
+
+		$lat      = $_REQUEST[ 'loc_lat' ];
+		$lon      = $_REQUEST[ 'loc_lon' ];
+		$location = $_REQUEST[ 'loc_name' ];
+
+		$fs_params = array(
+			'll' => $lat . ',' . $lon,
+		);
+
+		//	Perform a request to a public resource
+		$response = $foursquare->GetPublic( 'venues/search', $fs_params );
+		$venues = json_decode( $response );
+
+		$igers_name = mb_convert_case( $location,    MB_CASE_LOWER, 'UTF-8' );
+		$venueId    = null;
+
+		//	Let's try to find a matching location name near given latitude and longitude
+		//	Trying to match Instagram location name and FourSquare venue Name
+		foreach( $venues->response->venues as $venue ) {
+			$foursquare_name = mb_convert_case( $venue->name, MB_CASE_LOWER, 'UTF-8' );
+			if( $foursquare_name == $igers_name ) {
+				
+				//	YiPPIE KI-YAY! We found a matching location name!!!
+				$venueId = $venue->id;
+				break;
+				
+			}
+		}
+
+		//	If we found a venue let's include it in the EyeEm Photo object params!
+		if( ! empty( $venueId ) ) {
+			$eye_params[ 'venueId' ]          = $venueId;
+			$eye_params[ 'venueServiceName' ] = 'foursquare';
+		}
+	}
+
 	//	Create the EyeEm Photo object
-	$photo = $eyeem->postPhoto(
-		array(
-			'filename' => $filename,
-			'title'    => $_REQUEST[ 'title' ],
-			'topic'    => $_REQUEST[ 'topic' ],
-		)
-	);
+	$photo = $eyeem->postPhoto( $eye_params	);
+	
+	//	Set topics to this very image
+	//	Convert Igers #hashtag to EyeEm topic
+	if( ! empty( $_REQUEST[ 'topic' ] ) ) {
+
+		$topic = explode( ',', $_REQUEST[ 'topic' ] );
+		foreach( $topic as $t ) {
+			$eyeem->request(
+				'/photos/' . $photo->id . '/topics',
+				'POST',
+				array(
+					'name' => $t,
+				)
+			);
+		}
+	}
 
 	//	Create the igers2eye array to pass back to the ajax caller
 	$mediaList[] = array(
@@ -52,13 +115,18 @@ try{
     	'thumbUrl'  => $photo->thumbUrl,
     	'photoUrl'  => $photo->photoUrl,
     	'webUrl'    => $photo->webUrl,
+    	'venueid'   => ( ! empty( $venueId ) ? $venueId : '' ),
     	'latitude'  => $photo->latitude,
     	'longitude' => $photo->longitude,
+    	'topic'     => ( ! empty( $_REQUEST[ 'topic' ] ) ? $_REQUEST[ 'topic' ] : '' ),
     	'updated'   => $photo->updated,
     );
 
 } catch( ApiException $e ) {
 	exit( return_json( array(), null, 'Troubles uploading photo to EyeEm!' ) );
 }
+
+//	Remove the now useless uploaded file from my temp folder
+unlink( $targetname );
 
 exit( return_json( $mediaList, null, null ) );
