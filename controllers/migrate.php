@@ -45,7 +45,7 @@ try {
 //	Append some Js in the footer view template
 array_unshift(
 	$js_append,
-    'lib/spin.js/dist/spin.min.js'
+    'lib/js/spin.js/dist/spin.min.js'
 );
 
 require( 'views/_header.php' );
