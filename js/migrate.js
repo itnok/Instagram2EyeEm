@@ -16,6 +16,55 @@ $.fn.spin = function( opts ) {
 };
 
 //
+//	Display an error message if something go wrong during the process
+//
+var showErrorMsg = function( errMsg ) {
+	//	Stop the big spinner
+	$( '#progress .spin' ).data( 'spinner' ).stop();
+	$( '#progress .spin' ).remove();
+
+    //	Hide the Bootstrap progress bar if the process reaches 100%
+    //	Hide the status text, substitute it and make it visible again
+    //	Reset and Keep hidden the progress bar 
+    $( '#progress' )
+    	//	Hide Progressbar
+    	.find( '.progress' )
+    	.fadeOut( 500, function() {
+    		$( this )
+    			//	Modify Status Text
+    			.parent()
+    			.find( '.text' )
+    			.fadeOut( 500, function() {
+    				$( this )
+    					.find( 'h2' )
+    					.html( errMsg )
+    					//	Show the checkmark
+    					.closest( '#progress' )
+    					    .prepend(
+    					    	$( '<div class="checkmark" />' )
+    					    		.append(
+    					    			$( '<img src="img/iconmonstr-x-mark-4-icon.png" />' )
+    					        			.load( function() {
+    					        				//	The image is fully loaded!
+    					        				$( this )
+    					        					.animate(
+    					        						{
+    					        							opacity: 1.0
+    					        						}, 1250
+    					        					)
+    					        					//	Now let's show back the status text message
+    					        					.closest( '#progress' )
+    					        					.find( '.text' )
+    					        					.fadeIn( 750 )
+    					        				;
+    					        			} )
+    					    		)
+    					    );
+    			} )
+    	} );
+}
+
+//
 //	Load data about Instagram User's pictures
 //
 var loadInstagramData = function() {
@@ -80,6 +129,16 @@ var loadInstagramData = function() {
 					setTimeout( loadInstagramData, 5 );
 				}
 
+			//	END of SUCCESS Callback
+			},
+			error : function( data ) {
+				showErrorMsg( 
+					'An error occurred during the loading of your Instagram portfolio!<br />' +
+					'<br />' +
+					'Please reload the page to restart the process...<br />' +
+					'<br />' +
+					'<a class="btn btn-large btn-success" href="migrate">Restart Migration</a>' );
+			//	END of ERROR Callback
 			}
 		} );
 	}
@@ -95,7 +154,6 @@ var migrateToEyeEm = function() {
 
 	if( d[ 'bucket_size' ] > 0
 	 && d[ 'bucket_size' ] > e[ 'media' ].length
-//	 && e[ 'media' ].length < 5
 	 ) {
 
 		var nextPic = d[ 'bucket_size' ] - e[ 'media' ].length - 1;
@@ -128,7 +186,7 @@ var migrateToEyeEm = function() {
 				var percent = 100 * e[ 'media' ].length / e[ 'bucket_size' ];
 				$( '#progress .bar' ).css( 'width', percent + '%' );
 				
-				if( percent == 100 /* || e[ 'media' ].length == 5 */ ) {
+				if( percent == 100 ) {
 					//	Stop the big spinner
 					$( '#progress .spin' ).data( 'spinner' ).stop();
 					$( '#progress .spin' ).remove();
@@ -167,6 +225,8 @@ var migrateToEyeEm = function() {
 										        					.find( '.text' )
 										        					.fadeIn( 750 )
 										        				;
+									        				
+										        				$( '.donation' ).slideDown( 750 );
 										        			} )
 										    		)
 										    );
@@ -179,54 +239,20 @@ var migrateToEyeEm = function() {
 					setTimeout( migrateToEyeEm, 5 );
 				}
 
+			//	END of SUCCESS Callback
 			},
 			error: function() {
-				//	Hide the Bootstrap progress bar if the process reaches 100%
-				//	Hide the status text, substitute it and make it visible again
-				//	Reset and Keep hidden the progress bar 
-				$( '#progress' )
-					//	Hide Progressbar
-					.find( '.progress' )
-					.fadeOut( 500, function() {
-						$( this )
-							//	Modify Status Text
-							.parent()
-							.find( '.text' )
-							.fadeOut( 500, function() {
-								$( this )
-									.find( 'h2' )
-									.html(
-										'An error occurred during the migration of the photo ' +
-										d[ 'media' ].length +
-										' of ' +
-										e[ 'bucket_size' ] + '!'
-									)
-									//	Show the checkmark
-									.closest( '#progress' )
-									    .prepend(
-									    	$( '<div class="checkmark" />' )
-									    		.append(
-									    			$( '<img src="img/iconmonstr-x-mark-4-icon.png" />' )
-									        			.load( function() {
-									        				//	The image is fully loaded!
-									        				$( this )
-									        					.animate(
-									        						{
-									        							opacity: 1.0
-									        						}, 1250
-									        					)
-									        					//	Now let's show back the status text message
-									        					.closest( '#progress' )
-									        					.find( '.text' )
-									        					.fadeIn( 750 )
-									        				;
-									        			} )
-									    		)
-									    );
-							} )
-					} );
+				showErrorMsg(
+					'An error occurred during the migration of the photo ' +
+					d[ 'media' ].length +
+					' of ' +
+					e[ 'bucket_size' ] + '!'
+				);
+
+			//	END of ERROR Callback
 			}
 		} );
+
 	}
 	
 }
@@ -258,6 +284,9 @@ $( function() {
 
 	//	Initialize EyeEm data array
 	$.data( document.body, 'eyeem', { 'media':[], 'error':null, 'max_id':null, 'bucket_size':$( '#progress' ).data( 'bucket_size' )  } );
+
+	//	Let's hide the donation DIV just until the end of the process!
+	$( '.donation' ).slideUp( 1 );
 
 	//	Wait 500ms then execute "loadInstagramData"
 	setTimeout( loadInstagramData, 500 );
