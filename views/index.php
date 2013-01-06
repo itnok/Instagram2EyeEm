@@ -16,30 +16,43 @@
 
 <div class="row-fluid marketing">
     <div class="span6">
-        <h4>Subheading</h4>
+        <img src="img/iconmonstr-gear-2-icon.png" />
 
-        <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+        <h4>The missing gear</h4>
 
-        <h4>Subheading</h4>
+        <p>There was not any tool to move you photos from Instagram to EyeEm... until now!</p>
 
-        <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+        <img src="img/iconmonstr-globe-4-icon.png" />
 
-        <h4>Subheading</h4>
+        <h4>Knows where you've been</h4>
 
-        <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+        <p>Keep and migrate geolocation data and smoothly integrate with FourSquare and EyeEm integration</p>
+
+        <img src="img/iconmonstr-safe-icon.png" />
+
+        <h4>Safer than safe</h4>
+
+        <p>At the end of the migration you'll have all your photos on both Instagram and EyeEm.<br />You'll choose what to keep...</p>
     </div>
 
     <div class="span6">
-        <h4>Subheading</h4>
+        <img src="img/iconmonstr-favorite-3-icon.png" />
 
-        <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+        <h4>You'll love it!</h4>
 
-        <h4>Subheading</h4>
+        <p>It's simple, it's easy, it's a straightforward solution that only need you to click a button.</p>
 
-        <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+        <img src="img/iconmonstr-tag-7-icon.png" />
 
-        <h4>Subheading</h4>
+        <h4>Knows what's important to you</h4>
 
-        <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+        <p>Every hashtag and keyword set on you photos will be kept and migrated effortlessly.</p>
+
+        <img src="img/iconmonstr-danger-9-icon.png" />
+
+        <h4>A price you cannot beat</h4>
+
+        <p>Even though I accept donations if you think this tool is useful and to support it...<br />It's completely FREE to use and enjoy! </p>
+
     </div>
 </div>

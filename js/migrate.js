@@ -147,7 +147,7 @@ var migrateToEyeEm = function() {
 								.fadeOut( 500, function() {
 									$( this )
 										.find( 'h2' )
-										.html( 'Migration to EyeEm of your ' + d[ 'media' ].length + ' photos completed successfully!' )
+										.html( 'The migration of your ' + d[ 'media' ].length + ' photos to EyeEm completed successfully!' )
 										//	Show the checkmark
 										.closest( '#progress' )
 										    .prepend(
