@@ -1,0 +1,86 @@
+/* . GENERAL LESS - GLOBAL CONFIG (CLASSES) . */
+
+.roundedCorners (@radius: 4px) {
+	-khtml-border-radius : @radius;
+	-moz-border-radius	 : @radius;
+	-webkit-border-radius: @radius;
+	-ms-border-radius    : @radius;
+	border-radius		 : @radius;
+	behavior             : url( PIE.htc );
+}
+
+.opacity (@opacity: 0.5) {
+	-moz-opacity   : @opacity;
+	-khtml-opacity : @opacity;
+	-webkit-opacity: @opacity;
+	-ms-opacity    : @opacity;
+	opacity        : @opacity;
+	@ieOpacity     : (@opacity * 100);
+	filter         : e("alpha(opacity=@{ieOpacity})");
+}
+
+.shadow (@depth: 6px, @clr: #333) {
+	box-shadow        : 0px 0px;
+	-khtml-box-shadow : 0px 0px @depth @clr;
+	-moz-box-shadow   : 0px 0px @depth @clr;
+	-webkit-box-shadow: 0px 0px @depth @clr;
+	-ms-box-shadow    : 0px 0px @depth @clr;
+	behavior          : url( PIE.htc );
+}
+
+.dropshadow (@x: 0px, @y: 0px, @depth: 6px, @clr: #333) {
+	box-shadow        : @x @y;
+	-khtml-box-shadow : @x @y @depth @clr;
+	-moz-box-shadow   : @x @y @depth @clr;
+	-webkit-box-shadow: @x @y @depth @clr;
+	-ms-box-shadow    : @x @y @depth @clr;
+	behavior          : url( PIE.htc );
+}
+
+.translucentBackground (@r, @g, @b, @alpha) {
+	background     : rgb(@r, @g, @b);
+	background     : rgba(@r, @g, @b, @alpha);
+	-pie-background: rgba(@r, @g, @b, @alpha);
+    behavior       : url( PIE.htc );
+}
+
+.verticalGradient (@clr1, @clr2) {
+	background: @clr1; /* Old browsers */
+	background: -moz-linear-gradient(top,  @clr1 0%, @clr2 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,@clr1), color-stop(100%,@clr2)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, @clr1 0%,@clr2 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, @clr1 0%,@clr2 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, @clr1 0%,@clr2 100%); /* IE10+ */
+	background: linear-gradient(top, @clr1 0%,@clr2 100%); /* W3C */
+	filter: e("progid:DXImageTransform.Microsoft.gradient( startColorstr='@{clr1}', endColorstr='@{clr2}',GradientType=0 )"); /* IE6-9 */
+
+}
+
+.setPos (@pos) when (@pos = topleft) {
+	top   : 0px;
+	left  : 0px;	
+}
+
+.setPos (@pos) when (@pos = topright) {
+	top   : 0px;
+	right : 0px;	
+}
+
+.setPos (@pos) when (@pos = bottomleft) {
+	bottom: 0px;
+	left  : 0px;	
+}
+
+.setPos (@pos) when (@pos = bottomright) {
+	bottom: 0px;
+	right : 0px;	
+}
+
+.setPos (@pos) {
+	position: absolute;
+}
+
+.fakeLink() {
+	cursor: pointer;
+	cursor: hand;
+}

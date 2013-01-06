@@ -94,7 +94,9 @@ var migrateToEyeEm = function() {
 	var e = $.data( document.body, 'eyeem' );
 
 	if( d[ 'bucket_size' ] > 0
-	 && d[ 'bucket_size' ] > e[ 'media' ].length ) {
+	 && d[ 'bucket_size' ] > e[ 'media' ].length
+//	 && e[ 'media' ].length < 5
+	 ) {
 
 		var nextPic = d[ 'bucket_size' ] - e[ 'media' ].length - 1;
 
@@ -126,14 +128,103 @@ var migrateToEyeEm = function() {
 				var percent = 100 * e[ 'media' ].length / e[ 'bucket_size' ];
 				$( '#progress .bar' ).css( 'width', percent + '%' );
 				
-				if( percent == 100 ) {
-					//	DO SOMETHING WHEN FINISHED
+				if( percent == 100 /* || e[ 'media' ].length == 5 */ ) {
+					//	Stop the big spinner
+					$( '#progress .spin' ).data( 'spinner' ).stop();
+					$( '#progress .spin' ).remove();
+
+					//	Hide the Bootstrap progress bar if the process reaches 100%
+					//	Hide the status text, substitute it and make it visible again
+					//	Reset and Keep hidden the progress bar 
+					$( '#progress' )
+						//	Hide Progressbar
+						.find( '.progress' )
+						.fadeOut( 500, function() {
+							$( this )
+								//	Modify Status Text
+								.parent()
+								.find( '.text' )
+								.fadeOut( 500, function() {
+									$( this )
+										.find( 'h2' )
+										.html( 'Migration to EyeEm of your ' + d[ 'media' ].length + ' photos completed successfully!' )
+										//	Show the checkmark
+										.closest( '#progress' )
+										    .prepend(
+										    	$( '<div class="checkmark" />' )
+										    		.append(
+										    			$( '<img src="img/iconmonstr-check-mark-11-icon.png" />' )
+										        			.load( function() {
+										        				//	The image is fully loaded!
+										        				$( this )
+										        					.animate(
+										        						{
+										        							opacity: 1.0
+										        						}, 1250
+										        					)
+										        					//	Now let's show back the status text message
+										        					.closest( '#progress' )
+										        					.find( '.text' )
+										        					.fadeIn( 750 )
+										        				;
+										        			} )
+										    		)
+										    );
+								} )
+						} );
+					
 
 				} else {
 					//	We have not finished yet! Let's set timeout for the next AJAX request
 					setTimeout( migrateToEyeEm, 5 );
 				}
 
+			},
+			error: function() {
+				//	Hide the Bootstrap progress bar if the process reaches 100%
+				//	Hide the status text, substitute it and make it visible again
+				//	Reset and Keep hidden the progress bar 
+				$( '#progress' )
+					//	Hide Progressbar
+					.find( '.progress' )
+					.fadeOut( 500, function() {
+						$( this )
+							//	Modify Status Text
+							.parent()
+							.find( '.text' )
+							.fadeOut( 500, function() {
+								$( this )
+									.find( 'h2' )
+									.html(
+										'An error occurred during the migration of the photo ' +
+										d[ 'media' ].length +
+										' of ' +
+										e[ 'bucket_size' ] + '!'
+									)
+									//	Show the checkmark
+									.closest( '#progress' )
+									    .prepend(
+									    	$( '<div class="checkmark" />' )
+									    		.append(
+									    			$( '<img src="img/iconmonstr-x-mark-4-icon.png" />' )
+									        			.load( function() {
+									        				//	The image is fully loaded!
+									        				$( this )
+									        					.animate(
+									        						{
+									        							opacity: 1.0
+									        						}, 1250
+									        					)
+									        					//	Now let's show back the status text message
+									        					.closest( '#progress' )
+									        					.find( '.text' )
+									        					.fadeIn( 750 )
+									        				;
+									        			} )
+									    		)
+									    );
+							} )
+					} );
 			}
 		} );
 	}

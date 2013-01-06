@@ -8,8 +8,17 @@
     <meta name="description" content="Migrate all your Instagram images to EyeEm">
     <meta name="author" content="Simone Conti - http://dev.itnok.com"><!-- Le styles -->
     <link href="lib/js/bootstrap/docs/assets/css/bootstrap.css" rel="stylesheet" type="text/css">
-    <style type="text/css">
-    </style>
+    <?php
+	    try {
+	    	$less->checkedCompile(
+	    		APP_DIR . '/css/less/layout.less',
+	    		APP_DIR . '/css/layout.css'
+	    	);
+	    } catch( exception $e ) {
+	    	echo '<meta name="less" content="LESS Fatal Error: ' . $e->getMessage() . '">';
+	    }
+    ?>
+    <link href="css/layout.css" rel="stylesheet" type="text/css">
     <link href="lib/js/bootstrap/docs/assets/css/bootstrap-responsive.css" rel="stylesheet" type="text/css">
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>

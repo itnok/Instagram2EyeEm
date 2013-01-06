@@ -12,6 +12,10 @@ ini_set( 'display_errors', 'On' );
 // Start the session
 session_start();
 
+//	LESS compiler library
+require_once "lib/php/lessphp/lessc.inc.php";
+$less = new lessc;
+
 // Authorization configuration
 $auth_config = array(
     'instagram' => array(

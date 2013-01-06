@@ -1,0 +1,81 @@
+/**
+  * @version 1.0.0
+  * @copyright (C) 2012 by Simone Conti, ITnok
+ **/
+
+/* . GENERAL LESS - GLOBAL CONFIG (CLASSES) . */
+@import "01-mixin_library.less";
+
+body {
+    padding-top   : 20px;
+    padding-bottom: 40px;
+}
+
+/* Custom container */
+.container-narrow {
+    margin: 0 auto;
+    max-width: 700px;
+
+    hr {
+		margin: 30px 0px;
+    }
+}
+
+/* Main marketing message and migrate button */
+.jumbotron {
+    margin: 30px 0;
+    text-align: center;
+
+    h1 {
+        font-size  : 5.0em;
+        line-height: 1.0em;
+    }
+    
+    .headtitle h2 {
+        font-size  : 4.0em;
+        line-height: 1.0em;
+    }
+    
+    .btn {
+        font-size: 21px;
+        padding: 14px 24px;
+    }
+}
+
+/* Supporting marketing content */
+.marketing {
+    margin: 60px 0;
+
+    p + h4 {
+    	margin-top: 28px;
+    }
+}
+
+/* Progress indicator */
+#progress {
+	
+	.checkmark {
+		
+		img {
+			width : 256px;
+			height: 256px;
+			.opacity( 0.0 );
+		}
+
+	}
+	
+	.spin {
+    	height: 100px;
+    }
+    
+    .text {
+    	padding-top: 50px;
+    }
+}
+
+.forkme {
+    position: absolute;
+    top     : 0px;
+    right   : 0px;
+    border  : 0px;
+}
