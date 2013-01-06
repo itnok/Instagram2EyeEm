@@ -6,15 +6,24 @@
 /* . GENERAL LESS - GLOBAL CONFIG (CLASSES) . */
 @import "01-mixin_library.less";
 
+/* . GLOBAL VARS . */
+@contentswidth: 700px;
+
 body {
     padding-top   : 20px;
-    padding-bottom: 40px;
+}
+
+a {
+	&:hover,
+	&:active {
+		outline: 0;
+	}
 }
 
 /* Custom container */
 .container-narrow {
-    margin: 0 auto;
-    max-width: 700px;
+    margin   : 0 auto;
+    max-width: @contentswidth;
 
     hr {
 		margin: 30px 0px;
@@ -23,7 +32,7 @@ body {
 
 /* Main marketing message and migrate button */
 .jumbotron {
-    margin: 30px 0;
+    margin    : 30px 0;
     text-align: center;
 
     h1 {
@@ -38,7 +47,7 @@ body {
     
     .btn {
         font-size: 21px;
-        padding: 14px 24px;
+        padding  : 14px 24px;
     }
 }
 
@@ -76,6 +85,36 @@ body {
     .text {
     	padding-top: 50px;
     }
+}
+
+.container-footer {
+	.verticalGradient( #161616, #252525 );
+		
+	.footer {
+		padding   : 30px 10px 60px 10px;
+		text-align: center;
+
+		a {
+			color: #bababa;
+		}
+
+		p {
+			color: #bababa;
+		}
+		
+		.twitter-link {
+			background-image   : url('../img/twitter.png');
+    		background-repeat  : no-repeat;
+    		background-position: left center;
+    		margin-left        :  5px;
+    		padding            :  8px;
+    		padding-left       : 30px;
+    		width              : 16px;
+    		height             : 16px;
+    		display            : inline;
+    		.opacity( 0.4 );
+    	}
+	}
 }
 
 .forkme {

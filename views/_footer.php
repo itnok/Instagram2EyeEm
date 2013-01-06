@@ -1,10 +1,34 @@
+
 		<hr>
 		
-		<div class="footer">
-		  <p>&copy; Simone Conti @ dev.itnok.com 2012</p>
+		<div class="donation">
+			Creating this free web tool involved my energy, my passion and my spare time.<br />
+			If you think this tool is useful and if you would like to support my work and my passion...<br />
+			Please donate what you think it deserves.<br />
+			There is no minimum and no maximum allowed amount... just donate what you think is fair!<br />
+			&nbsp;
+			<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+				<input type="hidden" name="cmd" value="_s-xclick">
+				<input type="hidden" name="hosted_button_id" value="7Y29YJA5CZX5E">
+				<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+				<img alt="" border="0" src="https://www.paypalobjects.com/it_IT/i/scr/pixel.gif" width="1" height="1">
+			</form>
+			<b>Thank you!</b>
 		</div>
 
+		</div> <!-- /jumbotron -->
     </div> <!-- /container -->
+	<div class="container-footer row-fluid">
+		<div class="footer span12">
+			<p>&copy; Simone Conti @ dev.itnok.com 2012</p>
+			<p><a href="http://twitter.com/itnok" class="twitter-link">Follow me on Twitter</a></p>
+			<p>
+				Thank you to EyeEm staff for believing in my project and for allowing me to have writing access to their API<br />
+				All trademarks are the property of their respective owners.
+			</p>
+		</div>
+	</div>
+
 
     <!-- Le javascript
     ================================================== -->
