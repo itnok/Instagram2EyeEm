@@ -63,11 +63,12 @@ if( ! empty( $page ) && $page != 'home' && file_exists( APP_DIR . '/controllers/
         $eyeem->autoload();
 
         //	Append some Js specific for this view if exists
-        if( file_exists( APP_DIR . '/js/' . $page . '.js' ) )
-        array_push(
-        	$js_append,
-            'js/' . $page . '.js'
-        );
+        if( file_exists( APP_DIR . '/js/' . $page . '.js' ) ) {
+	        array_push(
+	        	$js_append,
+	            'js/' . $page . '.js'
+	        );
+        }
         
         require( APP_DIR . '/controllers/' . $page . '.php' );
         exit;
