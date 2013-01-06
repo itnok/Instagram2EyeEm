@@ -2,9 +2,9 @@
 		<hr>
 		
 		<div class="donation">
-			Creating this free web tool involved my energy, my passion and my spare time.<br />
+			<h4>Creating this free web tool involved my energy, my passion and my spare time.</h4>
 			If you think this tool is useful and if you would like to support my work and my passion...<br />
-			Please donate what you think it deserves.<br />
+			<b>Please donate what you think it deserves.</b><br />
 			There is no minimum and no maximum allowed amount... just donate what you think is fair!<br />
 			&nbsp;
 			<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
