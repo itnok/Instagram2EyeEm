@@ -76,7 +76,7 @@ var loadInstagramData = function() {
 		$.ajax( {
 			url     : 'get-instagram-pics',
 			type    : 'POST',
-			data    : { max_id: d[ 'max_id' ] },
+			data    : { max_id: d[ 'max_id' ], user: d[ 'username' ] },
 			cache   : false,
 			dataType: 'json',
 			success : function( data ) {
@@ -308,7 +308,7 @@ var migrateToEyeEm = function() {
 			error: function() {
 				showErrorMsg(
 					'An error occurred during the migration of the photo ' +
-					d[ 'media' ].length +
+					e[ 'media' ].length +
 					' of ' +
 					e[ 'bucket_size' ] + '!'
 				);
@@ -344,7 +344,7 @@ $( function() {
 	$( '#progress .spin' ).spin( spinOptions );
 
 	//	Initialize Instagram data array
-	$.data( document.body, 'instagram', { 'media':[], 'error':null, 'max_id':null, 'bucket_size':$( '#progress' ).data( 'bucket_size' )  } );
+	$.data( document.body, 'instagram', { 'media':[], 'error':null, 'max_id':null, 'bucket_size':$( '#progress' ).data( 'bucket_size' ), 'username': $( '#progress' ).data( 'username' ) } );
 
 	//	Initialize EyeEm data array
 	$.data( document.body, 'eyeem', { 'media':[], 'error':null, 'max_id':null, 'bucket_size':$( '#progress' ).data( 'bucket_size' )  } );

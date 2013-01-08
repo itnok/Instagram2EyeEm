@@ -43,7 +43,8 @@ try{
 	//	initialize the EyeEm Photo object params
 	$eye_params = array(
     	'filename' => $filename,
-    	'title'    => stripslashes( $_REQUEST[ 'title' ] ),
+    	//	We HAVE to REMOVE @ from the title beacusa EyeEm DOES NOT LIKE them!
+	   	'title'    => stripslashes( mb_ereg_replace( '@', '', $_REQUEST[ 'title' ] ) ),
     );
 
 	//	Geolocate through FourSquare
