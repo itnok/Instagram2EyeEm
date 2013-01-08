@@ -8,7 +8,7 @@
 		<h1 class="hidden-phone">From Instagram to EyeEm with just 1&#8209;click!</h1>
 		<h2 class="visible-phone">From Instagram to EyeEm with just 1&#8209;click!</h2>
 
-		<p class="lead">Migrate all your photos from your existing profile on Instagram to your freshly created profile on EyeEm with this free easy 1&#8209;click solution</p><a class="btn btn-large btn-success" href="migrate">Migrate NOW!</a>
+		<p class="lead">Migrate all your photos from your existing profile on Instagram to your profile on EyeEm with this free easy 1&#8209;click solution</p><a class="btn btn-large btn-success" href="migrate">Migrate NOW!</a>
 	</div>
 </div>
 
