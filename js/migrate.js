@@ -232,7 +232,9 @@ var migrateToEyeEm = function() {
 				loc_id  : d[ 'media' ][ nextPic ][ 'location' ][ 'id' ],
 				loc_lat : d[ 'media' ][ nextPic ][ 'location' ][ 'lat' ],
 				loc_lon : d[ 'media' ][ nextPic ][ 'location' ][ 'lon' ],
-				loc_name: d[ 'media' ][ nextPic ][ 'location' ][ 'name' ]
+				loc_name: d[ 'media' ][ nextPic ][ 'location' ][ 'name' ],
+				igers_id: d[ 'media' ][ nextPic ][ 'id' ],
+				created : d[ 'media' ][ nextPic ][ 'created' ],
 			},
 			cache   : false,
 			dataType: 'json',

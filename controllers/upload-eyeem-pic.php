@@ -42,18 +42,24 @@ try{
 
 	//	initialize the EyeEm Photo object params
 	$eye_params = array(
-    	'filename' => $filename,
+    	'filename'     => $filename,
     	//	We HAVE to REMOVE @ from the title beacusa EyeEm DOES NOT LIKE them!
-	   	'title'    => stripslashes( mb_ereg_replace( '@', '', $_REQUEST[ 'title' ] ) ),
+	   	'title'        => stripslashes( mb_ereg_replace( '@', '', $_REQUEST[ 'title' ] ) ),
+	   	'timestamp'    => ( ! empty( $_REQUEST[ 'created' ] ) ? $_REQUEST[ 'created' ] : time() ),
     );
 
+	//	Save original Instagram photo ID
+	if( ! empty( $_REQUEST[ 'instagram_id' ] ) ) {
+	   	$eye_params[ 'instagram_id' ] = $_REQUEST[ 'instagram_id' ];
+	}
+
 	//	Geolocate through FourSquare
-	if( ! empty( $_REQUEST[ 'loc_lat' ] ) &&
-		! empty( $_REQUEST[ 'loc_lon' ] ) &&
+	if( ! empty( $_REQUEST[ 'loc_lat' ]  ) &&
+		! empty( $_REQUEST[ 'loc_lon' ]  ) &&
 		! empty( $_REQUEST[ 'loc_name' ] ) ) {
 
-		$lat      = $_REQUEST[ 'loc_lat' ];
-		$lon      = $_REQUEST[ 'loc_lon' ];
+		$lat      = $_REQUEST[ 'loc_lat'  ];
+		$lon      = $_REQUEST[ 'loc_lon'  ];
 		$location = $_REQUEST[ 'loc_name' ];
 
 		$fs_params = array(

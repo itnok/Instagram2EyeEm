@@ -55,6 +55,7 @@ try{
     		$caption = $photo->getCaption();
 
     		$mediaList[] = array(
+    			'id'       => $photo->getId(),
     			'caption'  => ( ! empty( $caption ) ? $photo->getCaption()->getText() : '' ),
     			'tags'     => $photo->getTags()->toArray(),
     			'location' => $location,
