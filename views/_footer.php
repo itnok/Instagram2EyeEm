@@ -20,7 +20,7 @@
     </div> <!-- /container -->
 	<div class="container-footer row-fluid">
 		<div class="footer span12">
-			<p>&copy; Simone Conti @ dev.itnok.com 2012</p>
+			<p>&copy; Simone Conti @ dev.itnok.com 2012-2013</p>
 			<p><a href="http://twitter.com/itnok" class="twitter-link">Follow me on Twitter</a></p>
 			<p>
 				Thank you to EyeEm staff for believing in my project and for allowing me to have writing access to their API<br />
