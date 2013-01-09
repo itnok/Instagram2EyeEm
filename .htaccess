@@ -2,6 +2,17 @@ php_flag safe_mode Off
 
 php_value session.auto_start 0
 
+######################################################################
+###
+### Set application mode
+###
+###		- development
+###		- production
+###
+######################################################################
+
+SetEnv appMode production
+
 RewriteEngine on
 RewriteBase /igers2eye
 

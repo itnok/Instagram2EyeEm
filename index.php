@@ -2,8 +2,19 @@
 
 define( 'APP_DIR',         		__DIR__ );
 define( 'WEB_DIR',  			dirname( $_SERVER[ 'PHP_SELF' ] ) );
-define( 'REDIRECT',  			'http://dev.itnok.com/igers2eye/' );
-define( 'REDIRECT_AFTER_AUTH',  REDIRECT . 'auth_' );
+define( 'REDIRECT', 			'http://dev.itnok.com/igers2eye/' );
+define( 'REDIRECT_AFTER_AUTH',	REDIRECT . 'auth_' );
+
+define( 'DEBUG'              ,	( ! empty( $_ENV[ 'appMode' ] )
+										? ( $_ENV[ 'appMode' ] == 'development'
+												? true
+												: false
+										)
+										: false
+								) );
+
+//	API Access Credentials
+require_once "api/apicredentials.inc.php";
 
 // Turn on error reporting
 error_reporting( E_ALL & ~E_NOTICE );
@@ -19,19 +30,19 @@ $less = new lessc;
 // Authorization configuration
 $auth_config = array(
     'instagram' => array(
-	    'client_id'         => 'e341350c776a4848b8ab92f37009f4fc',
-	    'client_secret'     => '78afef998efe47a5930fe93b96b32def',
+	    'client_id'         => IG_CLIENT_ID,
+	    'client_secret'     => IG_CLIENT_SECRET,
 	    'redirect_uri'      => REDIRECT_AFTER_AUTH . 'igers',
 	    'scope'             => array( 'likes', 'comments', 'relationships' ),
 	),
 	'eyeem' => array(
-		'client_id' 		=> 'qOIvHA9pLUumq6zhYvCEkNr9nhtgf3g2',
-		'client_secret'		=> 'uTE9CJX3rngiGC5buh996SWPc2F8TpZ9',
+		'client_id' 		=> EE_CLIENT_ID,
+		'client_secret'		=> EE_CLIENT_SECRET,
 		'redirect_uri'		=> REDIRECT_AFTER_AUTH . 'eyeem',
 	),
 	'foursquare' => array(
-		'client_id' 		=> '3GPBXRNBQNKGYXWXRKAVPFBA5WQNP3FHLYYAUVPS0XOFKRDO',
-		'client_secret'		=> 'JAQPICH5MMN5A0D2INGT0S2AKGL0ULMY1NY0QMPCHIQJHENQ',
+		'client_id' 		=> FS_CLIENT_ID,
+		'client_secret'		=> FS_CLIENT_SECRET,
 		'redirect_uri'		=> REDIRECT_AFTER_AUTH . '4square',
 	)
 );

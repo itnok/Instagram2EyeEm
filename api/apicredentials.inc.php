@@ -1,0 +1,13 @@
+<?php
+
+//	Instagram API Credentials
+define( 'IG_CLIENT_ID',		'<PUT YOUR OWN INSTAGRAM CLIENT ID>' );
+define( 'IG_CLIENT_SECRET', '<PUT YOUR OWN INSTAGRAM CLIENT SECRET>' );
+
+//	EyeEm API Credentials
+define( 'EE_CLIENT_ID',		'<PUT YOUR OWN EYEEM CLIENT ID>' );
+define( 'EE_CLIENT_SECRET', '<PUT YOUR OWN EYEEM CLIENT SECRET>' );
+
+//	FourSquare API Credentials
+define( 'FS_CLIENT_ID',		'<PUT YOUR OWN FOURSQUARE CLIENT ID>' );
+define( 'FS_CLIENT_SECRET', '<PUT YOUR OWN FOURSQUARE CLIENT SECRET>' );

@@ -19,8 +19,11 @@ $instagram->setAccessToken( $_SESSION[ 'instagram_access_token' ] );
 $current_user = $instagram->getCurrentUser();
 
 try{
-	$username  = ! empty( $_REQUEST[ 'user' ] ) ? $_REQUEST[ 'user' ] : $current_user->getUserName();
-//	$username  = $current_user->getUserName();
+	if( DEBUG ) {
+		$username  = ! empty( $_REQUEST[ 'user' ] ) ? $_REQUEST[ 'user' ] : $current_user->getUserName();
+	} else {
+		$username  = $current_user->getUserName();
+	}
 	$user      = $instagram->getUserByUsername( $username );
 	
 	try {

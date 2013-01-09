@@ -27,8 +27,11 @@ if( empty( $_SESSION[ 'eyeem_access_token' ][ 'access_token' ] ) ) {
 
 try {
 
-	$username  = ! empty( $_REQUEST[ 'user' ] ) ? $_REQUEST[ 'user' ] : $current_user->getUserName();
-//	$username  = $current_user->getUserName();
+	if( DEBUG ) {
+		$username  = ! empty( $_REQUEST[ 'user' ] ) ? $_REQUEST[ 'user' ] : $current_user->getUserName();
+	} else {
+		$username  = $current_user->getUserName();
+	}
 	$user      = $instagram->getUserByUsername( $username );
 	$media_num = $user->getMediaCount();
 	
