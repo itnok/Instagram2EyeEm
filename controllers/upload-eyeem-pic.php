@@ -49,8 +49,8 @@ try{
     );
 
 	//	Save original Instagram photo ID
-	if( ! empty( $_REQUEST[ 'instagram_id' ] ) ) {
-	   	$eye_params[ 'instagram_id' ] = $_REQUEST[ 'instagram_id' ];
+	if( ! empty( $_REQUEST[ 'igers_id' ] ) ) {
+	   	$eye_params[ 'instagram_id' ] = $_REQUEST[ 'igers_id' ];
 	}
 
 	//	Geolocate through FourSquare
@@ -114,19 +114,21 @@ try{
 
 	//	Create the igers2eye array to pass back to the ajax caller
 	$mediaList[] = array(
-    	'id'        => $photo->id,
-    	'title'     => $photo->title,
-    	'caption'   => $photo->caption,
-    	'width'     => $photo->width,
-    	'height'    => $photo->height,
-    	'thumbUrl'  => $photo->thumbUrl,
-    	'photoUrl'  => $photo->photoUrl,
-    	'webUrl'    => $photo->webUrl,
-    	'venueid'   => ( ! empty( $venueId ) ? $venueId : '' ),
-    	'latitude'  => $photo->latitude,
-    	'longitude' => $photo->longitude,
-    	'topic'     => ( ! empty( $_REQUEST[ 'topic' ] ) ? $_REQUEST[ 'topic' ] : '' ),
-    	'updated'   => $photo->updated,
+    	'id'           => $photo->id,
+    	'title'        => $photo->title,
+    	'caption'      => $photo->caption,
+    	'width'        => $photo->width,
+    	'height'       => $photo->height,
+    	'thumbUrl'     => $photo->thumbUrl,
+    	'photoUrl'     => $photo->photoUrl,
+    	'webUrl'       => $photo->webUrl,
+    	'venueid'      => ( ! empty( $venueId ) ? $venueId : '' ),
+    	'latitude'     => $photo->latitude,
+    	'longitude'    => $photo->longitude,
+    	'topic'        => ( ! empty( $_REQUEST[ 'topic' ] ) ? $_REQUEST[ 'topic' ] : '' ),
+    	'updated'      => $photo->updated,
+    	'instagram_id' => ( ! empty( $_REQUEST[ 'igers_id' ] ) ? $_REQUEST[ 'igers_id' ] : '' ),
+    	'timestamp'    => $eye_params[ 'timestamp' ],
     );
 
 } catch( ApiException $e ) {
