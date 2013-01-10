@@ -11,7 +11,7 @@ php_value session.auto_start 0
 ###
 ######################################################################
 
-SetEnv appMode production
+SetEnv APPMODE production
 
 RewriteEngine on
 RewriteBase /igers2eye

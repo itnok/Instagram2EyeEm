@@ -1,12 +1,13 @@
 <?php
 
+$appMode = getenv( 'APPMODE' );
+
 define( 'APP_DIR',         		__DIR__ );
 define( 'WEB_DIR',  			dirname( $_SERVER[ 'PHP_SELF' ] ) );
 define( 'REDIRECT', 			'http://dev.itnok.com/igers2eye/' );
 define( 'REDIRECT_AFTER_AUTH',	REDIRECT . 'auth_' );
-
-define( 'DEBUG'              ,	( ! empty( $_ENV[ 'appMode' ] )
-										? ( $_ENV[ 'appMode' ] == 'development'
+define( 'DEBUG'              ,	( ! empty( $appMode )
+										? ( $appMode == 'development'
 												? true
 												: false
 										)
