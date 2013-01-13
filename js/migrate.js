@@ -226,15 +226,16 @@ var migrateToEyeEm = function() {
 			url     : 'upload-eyeem-pic',
 			type    : 'POST',
 			data    : { 
-				photo   : d[ 'media' ][ nextPic ][ 'image' ][ 'std' ][ 'url' ],
-				title   : d[ 'media' ][ nextPic ][ 'caption' ],
-				topic   : d[ 'media' ][ nextPic ][ 'tags' ].join( ',' ),
-				loc_id  : d[ 'media' ][ nextPic ][ 'location' ][ 'id' ],
-				loc_lat : d[ 'media' ][ nextPic ][ 'location' ][ 'lat' ],
-				loc_lon : d[ 'media' ][ nextPic ][ 'location' ][ 'lon' ],
-				loc_name: d[ 'media' ][ nextPic ][ 'location' ][ 'name' ],
-				igers_id: d[ 'media' ][ nextPic ][ 'id' ],
-				created : d[ 'media' ][ nextPic ][ 'created' ],
+				photo     : d[ 'media' ][ nextPic ][ 'image' ][ 'std' ][ 'url' ],
+				title     : d[ 'media' ][ nextPic ][ 'caption' ],
+				topic     : d[ 'media' ][ nextPic ][ 'tags' ].join( ',' ),
+				loc_id    : d[ 'media' ][ nextPic ][ 'location' ][ 'id' ],
+				loc_lat   : d[ 'media' ][ nextPic ][ 'location' ][ 'lat' ],
+				loc_lon   : d[ 'media' ][ nextPic ][ 'location' ][ 'lon' ],
+				loc_name  : d[ 'media' ][ nextPic ][ 'location' ][ 'name' ],
+				igers_id  : d[ 'media' ][ nextPic ][ 'id' ],
+				created   : d[ 'media' ][ nextPic ][ 'created' ],
+				igers_user: d[ 'userid' ]
 			},
 			cache   : false,
 			dataType: 'json',
@@ -346,7 +347,7 @@ $( function() {
 	$( '#progress .spin' ).spin( spinOptions );
 
 	//	Initialize Instagram data array
-	$.data( document.body, 'instagram', { 'media':[], 'error':null, 'max_id':null, 'bucket_size':$( '#progress' ).data( 'bucket_size' ), 'username': $( '#progress' ).data( 'username' ) } );
+	$.data( document.body, 'instagram', { 'media':[], 'error':null, 'max_id':null, 'bucket_size':$( '#progress' ).data( 'bucket_size' ), 'username': $( '#progress' ).data( 'username' ), 'userid': $( '#progress' ).data( 'userid' ) } );
 
 	//	Initialize EyeEm data array
 	$.data( document.body, 'eyeem', { 'media':[], 'error':null, 'max_id':null, 'bucket_size':$( '#progress' ).data( 'bucket_size' )  } );

@@ -24,7 +24,8 @@ try{
 	} else {
 		$username  = $current_user->getUserName();
 	}
-	$user      = $instagram->getUserByUsername( $username );
+	$user   = $instagram->getUserByUsername( $username );
+	$userId = $user->getId();
 	
 	try {
 		$params = array(
@@ -57,7 +58,7 @@ try{
 
     		$caption = $photo->getCaption();
 
-    		$mediaList[] = array(
+    		$currentMedia = array(
     			'id'       => $photo->getId(),
     			'caption'  => ( ! empty( $caption ) ? $photo->getCaption()->getText() : '' ),
     			'tags'     => $photo->getTags()->toArray(),
@@ -70,6 +71,13 @@ try{
     			),
     			'created'  => $photo->getCreatedTime(),
     		);
+
+    		if( DEBUG ) {
+	    		//	In DEBUG mode save the user ID in the media attributes
+    			$currentMedia[ 'userid' ] = ( ! empty( $userId ) ? $userId : '00000000' );
+    		}
+    		
+    		$mediaList[] = $currentMedia;
     	}
     	
     	//	Get Next pagination Id

@@ -33,6 +33,7 @@ try {
 		$username  = $current_user->getUserName();
 	}
 	$user      = $instagram->getUserByUsername( $username );
+	$userId    = $user->getId();
 	$media_num = $user->getMediaCount();
 	
 } catch( \Instagram\Core\ApiException $e ) {

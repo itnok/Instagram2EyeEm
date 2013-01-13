@@ -1,4 +1,4 @@
-<div id="progress" data-bucket_size="<?= $media_num ?>" data-username="<?= $username ?>">
+<div id="progress" data-bucket_size="<?= $media_num ?>" data-username="<?= $username ?>" data-userid="<?= $userId ?>">
 	<div class="spin"></div>
 	<div class="text">
 		<h2>Loading your <?= $media_num ?> photos from Instagram...</h2>
