@@ -14,6 +14,9 @@ define( 'DEBUG'              ,	( ! empty( $appMode )
 										: false
 								) );
 
+//	Logging Utility
+require_once "_debug.inc.php";
+
 //	API Access Credentials
 require_once "api/apicredentials.inc.php";
 
