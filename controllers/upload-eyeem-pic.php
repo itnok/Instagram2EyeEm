@@ -89,6 +89,7 @@ if( $isDuplicated ) {
 	    	'updated'      => $photo->updated,
 	    	'instagram_id' => $instagram_id,
 	    	'timestamp'    => 0,
+	    	'duplicate'    => true,
 	    );
 	} catch( Exception $e ) {
 		exit( return_json( array(), null, 'Troubles skipping duplicated photo on EyeEm! ' . $e->getMessage() ) );
@@ -204,6 +205,7 @@ if( $isDuplicated ) {
 	    	'updated'      => $photo->updated,
 	    	'instagram_id' => ( ! empty( $_REQUEST[ 'igers_id' ] ) ? $_REQUEST[ 'igers_id' ] : '' ),
 	    	'timestamp'    => $eye_params[ 'timestamp' ],
+	    	'duplicate'    => false,
 	    );
 	
 	} catch( Exception $e ) {

@@ -270,9 +270,28 @@ var migrateToEyeEm = function() {
 								.parent()
 								.find( '.text' )
 								.fadeOut( 500, function() {
+									//	Calculate how many dupes were skipped
+									var howManyDupes = 0;
+									
+									for( var i in e[ 'media' ] ) {
+										howManyDupes += e[ 'media' ][ i ].duplicate;
+									}
+
+									//	Let' show the results!
 									$( this )
 										.find( 'h2' )
-										.html( 'The migration of your ' + d[ 'media' ].length + ' photos to EyeEm completed successfully!' )
+										.html(
+											'The migration of your ' + d[ 'media' ].length + ' photos to EyeEm completed successfully!' +
+											( howManyDupes
+												?	'<br />' +
+													'<span class="smaller">' + howManyDupes + ' out of ' + d[ 'media' ].length +
+													( howManyDupes > 1 ? ' photos were ' : 'photo was ' ) + 'not imported' +
+													'<br />' +
+													'becuase ' + ( howManyDupes > 1 ? 'they have ' : 'it has ' ) + 
+													'already been migrated by a previous attempt</span>'
+												:	''
+											)
+										)
 										//	Show the checkmark
 										.closest( '#progress' )
 										    .prepend(
