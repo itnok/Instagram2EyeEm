@@ -43,21 +43,26 @@ try {
 
 	$igList = $igList[ 'instagramIds' ];
 
+	$canWeCheck4Duplicates = true;
+
 } catch( Exception $e ) {
-	exit( return_json( array(), null, 'Cannot get Instagram Ids list. ' . $e->getMessage() ) );
+	$canWeCheck4Duplicates = false;
 }
 
-//	Split $instagram_id in pieces ( POHOTOID_USERID)
-//	and check if already exists in EyeEm such a photo
-if( preg_match( '~^([0-9]+)_' . $instagram_userid . '$~i', $instagram_id, $match ) ) {
-	//	Make sure match[ 1 ] is an integer
-	$match[ 1 ] = intval( $match[ 1 ] );
+if( $canWeCheck4Duplicates ) {
 
-	//	Check if we have such an Id in the $igList
-	if( isset( $igList[ $match[ 1 ] ] ) &&
-	  ! empty( $igList[ $match[ 1 ] ] ) ) {
-		$igPhotoId = $match[ 1 ];
-		$isDuplicated = true;
+	//	Split $instagram_id in pieces ( POHOTOID_USERID)
+	//	and check if already exists in EyeEm such a photo
+	if( preg_match( '~^([0-9]+)_' . $instagram_userid . '$~i', $instagram_id, $match ) ) {
+		//	Make sure match[ 1 ] is an integer
+		$match[ 1 ] = intval( $match[ 1 ] );
+	
+		//	Check if we have such an Id in the $igList
+		if( isset( $igList[ $match[ 1 ] ] ) &&
+		  ! empty( $igList[ $match[ 1 ] ] ) ) {
+			$igPhotoId = $match[ 1 ];
+			$isDuplicated = true;
+		}
 	}
 }
 
