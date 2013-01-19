@@ -6,11 +6,11 @@
 			</li>
 		</ul>
 		<div class="hero-unit span9 left">
-			<p>Migrate all your photos from your existing profile on Instagram to your freshly created profile on EyeEm with this free easy 1&#8209;click solution.</p>
+			<p>Migrate all your photos from your existing profile on Instagram to your profile on EyeEm with this free easy 1&#8209;click solution.</p>
 			<p>All you need to use this webapp is:</p>
 			<ul>
 				<li>an account on Instagram with some photos</li>
-				<li>an account on EyeEm where you want to transfer your photo</li>
+				<li>an account on EyeEm where you want to transfer your photos</li>
 				<li>press the button below!</li>
 			</ul>
 		</div>
