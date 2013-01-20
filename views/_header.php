@@ -14,7 +14,7 @@
 	    		APP_DIR . '/css/less/layout.less',
 	    		APP_DIR . '/css/layout.css'
 	    	);
-	    } catch( exception $e ) {
+	    } catch( Exception $e ) {
 	    	echo '<meta name="less" content="LESS Fatal Error: ' . $e->getMessage() . '">';
 	    }
     ?>

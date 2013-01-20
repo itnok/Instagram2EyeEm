@@ -18,7 +18,7 @@ define( 'DEBUG'              ,	( ! empty( $appMode )
 require_once "_debug.inc.php";
 
 //	API Access Credentials
-require_once "api/apicredentials.inc.php";
+require_once( APP_DIR . '/api/apicredentials.inc.php' );
 
 // Turn on error reporting
 error_reporting( E_ALL & ~E_NOTICE );
@@ -28,7 +28,7 @@ ini_set( 'display_errors', 'On' );
 session_start();
 
 //	LESS compiler library
-require_once "lib/php/lessphp/lessc.inc.php";
+require_once( APP_DIR . '/lib/php/lessphp/lessc.inc.php' );
 $less = new lessc;
 
 // Authorization configuration
