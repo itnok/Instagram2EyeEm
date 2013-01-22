@@ -65,6 +65,39 @@ var showErrorMsg = function( errMsg ) {
 }
 
 //
+//	Display an error message if something go wrong during the process
+//
+var updateInstagramProgress = function( statusMsg ) {
+	//	Hide the Bootstrap progress bar if the process reaches 100%
+	//	Hide the status text, substitute it and make it visible again
+	//	Reset and Show back the progress bar 
+	$( '#progress' )
+		.delay( 500 )
+		//	Hide Progressbar
+		.find( '.progress' )
+		.fadeOut( 500, function() {
+			$( this )
+				//	Modify Status Text
+				.parent()
+				.find( '.text' )
+				.fadeOut( 500, function() {
+					$( this )
+						.find( 'h2' )
+						.html( statusMsg )
+						.parent()
+						.fadeIn( 500 )
+				} )
+				//	Show Progressbar
+				.parent()
+				.find( '.progress .bar' )
+				.css( 'width', '0%' )
+				.parent()
+				.fadeIn( 500 )
+			;
+		} );
+}
+
+//
 //	Load data about Instagram User's pictures
 //
 var loadInstagramData = function() {
@@ -97,30 +130,7 @@ var loadInstagramData = function() {
 					//	Hide the Bootstrap progress bar if the process reaches 100%
 					//	Hide the status text, substitute it and make it visible again
 					//	Reset and Show back the progress bar 
-					$( '#progress' )
-						.delay( 500 )
-						//	Hide Progressbar
-						.find( '.progress' )
-						.fadeOut( 500, function() {
-							$( this )
-								//	Modify Status Text
-								.parent()
-								.find( '.text' )
-								.fadeOut( 500, function() {
-									$( this )
-										.find( 'h2' )
-										.html( 'Migrating your ' + d[ 'media' ].length + ' photos to EyeEm...' )
-										.parent()
-										.fadeIn( 500 )
-								} )
-								//	Show Progressbar
-								.parent()
-								.find( '.progress .bar' )
-								.css( 'width', '0%' )
-								.parent()
-								.fadeIn( 500 )
-							;
-						} );
+					updateInstagramProgress( 'Migrating your ' + d[ 'media' ].length + ' photos to EyeEm...' );
 					
 					//	Let's start the import process in EyeEm...
 					setTimeout( migrateToEyeEm, 500 );
@@ -170,37 +180,49 @@ var loadInstagramData = function() {
 				//	Hide the Bootstrap progress bar if the process reaches 100%
 				//	Hide the status text, substitute it and make it visible again
 				//	Reset and Show back the progress bar 
-				$( '#progress' )
-					.delay( 500 )
-					//	Hide Progressbar
-					.find( '.progress' )
-					.fadeOut( 500, function() {
-						$( this )
-							//	Modify Status Text
-							.parent()
-							.find( '.text' )
-							.fadeOut( 500, function() {
-								$( this )
-									.find( 'h2' )
-									.html(
-										'Migrating only ' + d[ 'media' ].length + ' photos to EyeEm...' +
+				updateInstagramProgress( 'Migrating only ' + d[ 'media' ].length + ' photos to EyeEm...' +
 										'<br />' +
 										'<span class="smaller">There '   + ( howManyZebras > 1 ? 'are ' : 'is ' ) +
 										howManyZebras + ' missing photo' + ( howManyZebras > 1 ? 's'    : '' ) +
-										' (not readable from Instagram)</span>'
-									)
-									.parent()
-									.fadeIn( 500 )
-							} )
-							//	Show Progressbar
-							.parent()
-							.find( '.progress .bar' )
-							.css( 'width', '0%' )
-							.parent()
-							.fadeIn( 500 )
-						;
-					} );
+										' (not readable from Instagram)</span>' );
 				
+				//	Let's start the import process in EyeEm...
+				setTimeout( migrateToEyeEm, 500 );
+			}
+		//	Kill the Zebra!
+		//	Sometimes there are odd Instagram profiles that state they are composed by X images
+		//	BUT IT'S NOT TRUE! They are composed by X+n images (n = 1 in my own Zebra)
+		//
+		//	This is unlucky, unpleasant and untoward... We also MUST handle this case!
+		} else if( d[ 'max_id' ] == null &&
+				   d[ 'media' ].length > 0 &&
+				   d[ 'media' ].length > d[ 'bucket_size' ] ) {
+			
+			var howManyZebras = d[ 'media' ].length - d[ 'bucket_size' ];
+			
+			//	Set the new value for Bucket Size
+			d[ 'bucket_size' ] = d[ 'media' ].length;
+			//	Also EyeEm Bucket Size MUST BE corrected accordingly
+			var e = $.data( document.body, 'eyeem' );
+			e[ 'bucket_size' ] = d[ 'media' ].length;
+
+			//	Update data
+			$.data( document.body, 'instagram', d );
+			$.data( document.body, 'eyeem',     e );
+
+			var percent = 100 * d[ 'media' ].length / d[ 'bucket_size' ];
+			$( '#progress .bar' ).css( 'width', percent + '%' );
+			
+			if( percent == 100 ) {
+				//	Hide the Bootstrap progress bar if the process reaches 100%
+				//	Hide the status text, substitute it and make it visible again
+				//	Reset and Show back the progress bar 
+				updateInstagramProgress( 'Migrating ' + d[ 'media' ].length + ' photos to EyeEm...' +
+										 '<br />' +
+										 '<span class="smaller">There '   + ( howManyZebras > 1 ? 'are ' : 'is ' ) +
+										 howManyZebras + ' more photo' + ( howManyZebras > 1 ? 's'    : '' ) +
+										 ' (Instagram made a mistake counting your photos!)</span>' );
+
 				//	Let's start the import process in EyeEm...
 				setTimeout( migrateToEyeEm, 500 );
 			}
